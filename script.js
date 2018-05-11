@@ -9,24 +9,26 @@ class Game {
         // this.tick()
     }
 
+    update() {
+        this.player.update()
+    }
+
     draw() {
+        this.screen.clearRect(0, 0, this.gameSize.x, this.gameSize.y);
         this.screen.lineWidth = 10;
         this.screen.strokeStyle = 'white';
         // console.log(this.gameSize.x)
         this.screen.strokeRect(150, 150, 200, 200)
         this.player.draw()
-        
     }
 
     tick() {
         this.draw()
-        // this.update()
+        this.update()
         requestAnimationFrame(this.tick.bind(this));
     }
 
-    update() {
 
-    }
 }
 
 class Player {
@@ -39,15 +41,23 @@ class Player {
 
     }
 
-    draw() {
-        this.screen.fillStyle = 'red'
-        this.screen.fillRect(230, 230, 40, 40)
-    }
+
 
     update() {
-        if(this.keyboarder.isDown(this.keyboarder.KEYS.LEFT)){
-            this.center.x 
+        if(this.keyboarder.isDown(Keyboarder.KEYS.LEFT) && this.center.x > 190){
+            this.center.x -= 11
+        } else if(this.keyboarder.isDown(Keyboarder.KEYS.RIGHT) && this.center.x < 310){
+            this.center.x +=11
+        } else if(this.keyboarder.isDown(Keyboarder.KEYS.UP) && this.center.y > 190){
+            this.center.y -= 11
+        } else if(this.keyboarder.isDown(Keyboarder.KEYS.DOWN) && this.center.y < 310){
+            this.center.y += 11
         }
+    }
+
+        draw() {
+        this.screen.fillStyle = 'red'
+        this.screen.fillRect(this.center.x - this.size.x/2, this.center.y - this.size.y/2, 40, 40)
     }
 }
 
